@@ -1,0 +1,72 @@
+{%extends 'auth-main.html'%}
+{%load static%}
+{%block content%}
+    {% if page == 'register' %}
+        <div class="card-body p-4"> 
+
+            <div class="text-center mt-2">
+                <h5 class="text-primary">Register Account</h5>
+                <p class="text-muted">Start You Journey With Stanar</p>
+            </div>
+            <div class="p-2 mt-4">
+                <form action="{%url 'register'%}" method="POST">
+                    {%csrf_token%}
+                    {%for field in form%}
+                        {%ifnotequal field.label 'Terms and Conditions'%}
+                            <div class="mb-3">
+                                <label class="form-label" for="useremail">{{field.label}}</label>
+                                {{field}}
+                                {% for error in field.errors %}
+                                    <p style="color: firebrick;">{{error}}</p>
+                                {% endfor %}
+                            </div>
+                        {%else%}
+                            <div class="form-check">
+                                {{field}}
+                                <!-- <input type="checkbox" class="form-check-input" id="auth-terms-condition-check"> -->
+                                <label class="form-check-label" for="auth-terms-condition-check">I accept <a href="javascript: void(0);" class="text-dark">{{field.label}}</a></label>
+                            </div>
+                        {%endifnotequal%}
+                    {%endfor%}
+                    <div class="mt-3 text-end">
+                        <button class="btn btn-primary w-sm waves-effect waves-light" type="submit">Register</button>
+                    </div>
+
+                    <div class="mt-4 text-center">
+                        <p class="text-muted mb-0">Already have an account ? <a href="{%url 'login'%}" class="fw-medium text-primary"> Login</a></p>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    {%else%}
+    <div class="card-body p-4"> 
+
+        <div class="text-center mt-2">
+            <h5 class="text-primary">Login Account</h5>
+            <p class="text-muted">Welcome Back</p>
+        </div>
+        <div class="p-2 mt-4">
+            <form action="{%url 'login'%}" method="POST">
+                {%csrf_token%}
+                <div class="mb-3">
+                    <label class="form-label" for="email">Email</label>
+                    <input type="text" class="form-control" name="email" id="email" placeholder="e.g john.doe@email.com">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="************">
+                </div>
+                <div class="mt-3 text-end">
+                    <button class="btn btn-primary w-sm waves-effect waves-light" type="submit">Login</button>
+                </div>
+
+                <div class="mt-4 text-center">
+                    <p class="text-muted mb-0">Do not have an account? <a href="{%url 'register'%}" class="fw-medium text-primary"> Register</a></p>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    {%endif%}
+{%endblock%}

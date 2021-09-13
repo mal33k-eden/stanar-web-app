@@ -22,7 +22,7 @@ class User(AbstractUser):
     
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS= [
-        'username','full_name',
+        'username','full_name','policy_agreed'
     ]
 
 class Provider(models.Model):
