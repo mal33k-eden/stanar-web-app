@@ -19,8 +19,6 @@ def loginAccount(request):
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
-        print(email)
-        print(password)
         try:
             user= User.objects.get(email=email)
         except:
@@ -28,10 +26,13 @@ def loginAccount(request):
         user = authenticate(request,email=email,password=password)
         if user is not None:
             login(request,user)
-            return redirect('/')
+            return redirect('bus.dashboard')
         else:
             print('username or password incorrect')
     return render(request,'accounts/login_register.html',context)
 
-def dashboard():
+def dashboard(request):
+    pass
+
+def staff():
     pass
