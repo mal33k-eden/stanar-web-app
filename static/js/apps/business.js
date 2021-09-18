@@ -11,7 +11,7 @@ bus={
     },
     submitStrictForm:()=>{
         bp();
-        if($('#bus-form')[0].checkValidity()){
+        if($('.bus-form')[0].checkValidity()){
             setTimeout(()=>{
                 $('.bus-form').submit();
             },3000)

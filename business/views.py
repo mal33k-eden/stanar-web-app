@@ -58,13 +58,19 @@ def options(request,type='all'):
                     messages.success(request,'your business amenities are added successfully')
                     return redirect('bus.options')
             else:
+                dic = Amenities()
+                dic.id = amenities.first().id
                 print(dict(request.POST.items()))
                 form = BusinessAmenitiesForm(request.POST,instance=amenities.first())
-                print(dict(request.POST.items()))
-                # for name,item in request.POST.items():
-                #     print(name)
-                #     print(item)
-                form.save()
+                for name,field in request.POST.items():
+                    dic.cus_parking = request.POST.get('cus_parking','off')
+                    dic.card_accept = request.POST.get('card_accept','off')
+                    dic.child_friendly = request.POST.get('child_friendly','off')
+                    dic.disability = request.POST.get('disability','off')
+                    dic.wifi = request.POST.get('wifi','off')
+                    dic.loyalty_program = request.POST.get('loyalty_program','off')
+                    dic.pet_friendly = request.POST.get('pet_friendly','off')
+                dic.save()
                 messages.success(request,'your business amenities are updated')
         elif type == 'payment_methods':
             if payment_methods_count == 0 :
