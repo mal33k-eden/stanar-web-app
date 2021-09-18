@@ -9,7 +9,7 @@
                 <h4 class="card-title">Manage Your Business Profile</h4>
                 <p class="card-title-desc">Let your customers know about your business,provide contact, location and social media details</p>
                 {%include 'alert.html'%}
-                <form action="{%url 'bus.profile'%}" method="POST" id="bus-form">
+                <form action="{%url 'bus.profile'%}" method="POST" class="bus-form">
                     {%csrf_token%}
                     <div class="row">
                         <div class="col-xl-4">
@@ -20,30 +20,35 @@
                                     
                                         <div class="mb-3">
                                             <label class="form-label">Business Name</label>
-                                            {{form.name}}
+                                            {{form.business_name}}
+                                            <p style="color: firebrick;">{{form.business_name.errors}}</
                                         </div>        
                                         <div class="mb-3">
                                             <label class="form-label"> Phone</label>
                                             <div>
-                                                {{form.phone}}
+                                                {{form.business_phone}}
+                                                <p style="color: firebrick;">{{form.business_phone.errors}}</p>
                                             </div>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">E-Mail</label>
                                             <div>
-                                                {{form.email}}
+                                                {{form.business_email}}
+                                                <p style="color: firebrick;">{{form.business_email.errors}}</p>
                                             </div>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Bio</label>
                                             <div>
-                                                {{form.bio}}
+                                                {{form.business_bio}}
+                                                <p style="color: firebrick;">{{form.business_bio.errors}}</p>
                                             </div>
                                         </div>
                                     
 
                                 </div>
                             </div>
+                        </div>
                         </div>
                         <div class="col-xl-4">
                             <div class="card">
@@ -52,24 +57,28 @@
                                     
                                         <div class="mb-3">
                                             <label class="form-label">Instagram</label>
-                                            {{form.instagram}}
+                                            {{form.instagram_link}}
+                                            <p style="color: firebrick;">{{form.instagram_link.errors}}</p>
                                         </div>        
                                         <div class="mb-3">
                                             <label class="form-label">Facebook</label>
                                             <div>
-                                                {{form.facebook}}
+                                                {{form.facebook_link}}
+                                                <p style="color: firebrick;">{{form.facebook_link.errors}}</p>
                                             </div>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Twitter</label>
                                             <div>
-                                                {{form.twitter}}
+                                                {{form.twitter_link}}
+                                                <p style="color: firebrick;">{{form.twitter_link.errors}}</p>
                                             </div>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Website</label>
                                             <div>
                                                 {{form.website}}
+                                                <p style="color: firebrick;">{{form.website.errors}}</p>
                                             </div>
                                         </div>
                                 </div>
@@ -83,29 +92,34 @@
                                         <div class="mb-3">
                                             <label class="form-label">Postcode</label>
                                             {{form.postcode}}
+                                            <p style="color: firebrick;">{{form.postcode.errors}}</p>
                                         </div>        
                                         <div class="mb-3">
                                             <label class="form-label">Address Line 1</label>
                                             <div>
-                                                {{form.address1}}
+                                                {{form.address_line_1}}
+                                                <p style="color: firebrick;">{{form.address_line_1.errors}}</p>
                                             </div>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Address Line 2 (optional)</label>
                                             <div>
-                                                {{form.address2}}
+                                                {{form.address_line_2}}
+                                                <p style="color: firebrick;">{{form.address_line_2.errors}}</p>
                                             </div>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Town/City</label>
                                             <div>
                                                 {{form.town}}
+                                                <p style="color: firebrick;">{{form.town.errors}}</p>
                                             </div>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Country</label>
                                             <div>
                                                 {{form.country}}
+                                                <p style="color: firebrick;">{{form.country.errors}}</p>
                                             </div>
                                         </div>
                                             
@@ -113,7 +127,7 @@
                             </div>
                         </div>
                         <div class="mt-4">
-                            <button style="float: right;" type="submit" class="btn btn-primary w-md cus_submit">Update Profile</button>
+                            <button style="float: right;" type="submit" class="btn btn-primary w-md cus_submit_strict">Update Profile</button>
                         </div>
                     </div>
                 </form>

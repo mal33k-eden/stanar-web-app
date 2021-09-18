@@ -1,23 +1,32 @@
 bus={
     init:()=>{
-        $('.cus_submit').click(()=>{
+        $('.cus_submit_strict').click((e)=>{
+            e.preventDefault()
+            bus.submitStrictForm()
+        })
+        $('.cus_submit').click((e)=>{
+            e.preventDefault()
             bus.submitForm()
         })
     },
-    submitForm:()=>{
+    submitStrictForm:()=>{
         bp();
         if($('#bus-form')[0].checkValidity()){
             setTimeout(()=>{
-                console.log('submitted');
+                $('.bus-form').submit();
             },3000)
         }else{
             notifyError('Error','Kindly fill out the form correctly');
             setTimeout(()=>{
                 $.unblockUI()
             },3000)
-        }
-        
-        
+        }    
+    },
+    submitForm:()=>{
+        bp();
+        setTimeout(()=>{
+            $('.bus-form').submit();
+        },3000)
     }
 
 }

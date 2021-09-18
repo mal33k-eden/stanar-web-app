@@ -1,0 +1,106 @@
+{%extends 'main-bus.html'%}
+{%load static}
+{%block content%}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Manage Your Business Profile</h4>
+                <p class="card-title-desc">Let your customers know about your business,provide contact, location and social media details</p>
+                {%include 'alert.html'%}
+        
+                <div class="row">
+                    <div class="col-xl-4">
+                        <!-- <h5 class="font-size-16 mb-4">General Info</h5> -->
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title mb-3">Amenities</h4>        
+                                <form action="{%url 'bus.options'%}" class="bus-form" method="POST">
+                                    {%csrf_token%}
+                                    <div>
+                                        <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
+                                            <input type="checkbox" class="form-check-input" id="customSwitchsizelg" checked>
+                                            <label class="form-check-label" for="customSwitchsizelg">Customer Parking</label>
+                                        </div>
+                                        <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
+                                            <input type="checkbox" class="form-check-input" id="customSwitchsizelg" checked>
+                                            <label class="form-check-label" for="customSwitchsizelg">Card Accepted</label>
+                                        </div>
+                                        <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
+                                            <input type="checkbox" class="form-check-input" id="customSwitchsizelg" checked>
+                                            <label class="form-check-label" for="customSwitchsizelg">Disability Accessible</label>
+                                        </div>
+                                        <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
+                                            <input type="checkbox" class="form-check-input" id="customSwitchsizelg" checked>
+                                            <label class="form-check-label" for="customSwitchsizelg">Child-Friendly</label>
+                                        </div>
+                                        <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
+                                            <input type="checkbox" class="form-check-input" id="customSwitchsizelg" checked>
+                                            <label class="form-check-label" for="customSwitchsizelg">Pet Friendly</label>
+                                        </div>
+                                        <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
+                                            <input type="checkbox" class="form-check-input" id="customSwitchsizelg" checked>
+                                            <label class="form-check-label" for="customSwitchsizelg">Large Size Switch</label>
+                                        </div>
+                                        <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
+                                            <input type="checkbox" class="form-check-input" id="customSwitchsizelg" checked>
+                                            <label class="form-check-label" for="customSwitchsizelg">WiFi</label>
+                                        </div>
+                                        <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
+                                            <input type="checkbox" class="form-check-input" id="customSwitchsizelg" checked>
+                                            <label class="form-check-label" for="customSwitchsizelg">Loyalty Program</label>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4">
+                                        <button type="submit" class="btn btn-primary btn-center btn-rounded w-md cus_submit">Update Amenities</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4">
+                    </div>
+                    <div class="col-xl-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title mb-3">Payment Methods</h4>        
+                                <form action="">
+                                    <div>
+                                        <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
+                                            <input type="checkbox" class="form-check-input" id="customSwitchsizelg" checked>
+                                            <label class="form-check-label" for="customSwitchsizelg">Cash</label>
+                                        </div>
+                                        <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
+                                            <input type="checkbox" class="form-check-input" id="customSwitchsizelg" checked>
+                                            <label class="form-check-label" for="customSwitchsizelg">Physical Card Terminal</label>
+                                        </div>
+                                        <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
+                                            <input type="checkbox" class="form-check-input" id="customSwitchsizelg" checked>
+                                            <label class="form-check-label" for="customSwitchsizelg">Check</label>
+                                        </div>
+                                        <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
+                                            <input type="checkbox" class="form-check-input" id="customSwitchsizelg" checked>
+                                            <label class="form-check-label" for="customSwitchsizelg">PayPal</label>
+                                        </div>
+                                        <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
+                                            <input type="checkbox" class="form-check-input" id="customSwitchsizelg" checked>
+                                            <label class="form-check-label" for="customSwitchsizelg">Bank Transfer</label>
+                                        </div>
+                                        <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
+                                            <input type="checkbox" class="form-check-input" id="customSwitchsizelg" checked>
+                                            <label class="form-check-label" for="customSwitchsizelg">Gift Card</label>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4 ">
+                                        <button type="submit" class="btn btn-primary btn-center btn-rounded w-md cus_submit">Update Payment Methods</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}
