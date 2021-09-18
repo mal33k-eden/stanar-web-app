@@ -25,25 +25,25 @@ class Business(models.Model):
 
 class Amenities(models.Model):
     business        = models.OneToOneField(Business, on_delete=models.CASCADE, null=True,blank=True)
-    cus_parking     = models.BooleanField(default=False,blank=True,null= True)
-    card_accept     = models.BooleanField(default=False,blank=True,null= True)
-    disability      = models.BooleanField(default=False,blank=True,null= True)
-    child_friendly  = models.BooleanField(default=False,blank=True,null= True)
-    pet_friendly    = models.BooleanField(default=False,blank=True,null= True)
-    wifi            = models.BooleanField(default=False,blank=True,null= True)
-    loyalty_program = models.BooleanField(default=False,blank=True,null= True)
+    cus_parking     = models.CharField(default='off',blank=True,null= True)
+    card_accept     = models.CharField(default='off',blank=True,null= True)
+    disability      = models.CharField(default='off',blank=True,null= True)
+    child_friendly  = models.CharField(default='off',blank=True,null= True)
+    pet_friendly    = models.CharField(default='off',blank=True,null= True)
+    wifi            = models.CharField(default='off',blank=True,null= True)
+    loyalty_program = models.CharField(default='off',blank=True,null= True)
     
     def __str__(self) -> str:
         return self.business
 
 class PaymentMethods(models.Model):
     business        = models.OneToOneField(Business, on_delete=models.CASCADE, null=True,blank=True)
-    cash            = models.BooleanField(default=False,blank=True,null= True)
-    physical        = models.BooleanField(default=False,blank=True,null= True)
-    check           = models.BooleanField(default=False,blank=True,null= True)
-    paypal          = models.BooleanField(default=False,blank=True,null= True)
-    bank_transfer   = models.BooleanField(default=False,blank=True,null= True)
-    gift_card       = models.BooleanField(default=False,blank=True,null= True)
+    cash            = models.CharField(default='off',blank=True,null= True)
+    physical        = models.CharField(default='off',blank=True,null= True)
+    check           = models.CharField(default='off',blank=True,null= True)
+    paypal          = models.CharField(default='off',blank=True,null= True)
+    bank_transfer   = models.CharField(default='off',blank=True,null= True)
+    gift_card       = models.CharField(default='off',blank=True,null= True)
     
     def __str__(self) -> str:
         return self.business

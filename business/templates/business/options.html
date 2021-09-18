@@ -15,39 +15,35 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title mb-3">Amenities</h4>        
-                                <form action="{%url 'bus.options'%}" class="bus-form" method="POST">
+                                <form action="{%url 'bus.options' 'amenities'%}" class="bus-form" method="POST">
                                     {%csrf_token%}
                                     <div>
                                         <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
-                                            <input type="checkbox" class="form-check-input" id="customSwitchsizelg" checked>
+                                            <input type="checkbox" name="cus_parking" class="form-check-input" id="customSwitchsizelg" {% if amenities.cus_parking%}checked{%endif%}>
                                             <label class="form-check-label" for="customSwitchsizelg">Customer Parking</label>
                                         </div>
                                         <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
-                                            <input type="checkbox" class="form-check-input" id="customSwitchsizelg" checked>
+                                            <input type="checkbox" name="card_accept" class="form-check-input" id="customSwitchsizelg" {% if amenities.card_accept%}checked{%endif%}>
                                             <label class="form-check-label" for="customSwitchsizelg">Card Accepted</label>
                                         </div>
                                         <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
-                                            <input type="checkbox" class="form-check-input" id="customSwitchsizelg" checked>
+                                            <input type="checkbox" name="disability" class="form-check-input" id="customSwitchsizelg" {% if amenities.disability%}checked{%endif%}>
                                             <label class="form-check-label" for="customSwitchsizelg">Disability Accessible</label>
                                         </div>
                                         <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
-                                            <input type="checkbox" class="form-check-input" id="customSwitchsizelg" checked>
+                                            <input type="checkbox" name="child_friendly" class="form-check-input" id="customSwitchsizelg" {% if amenities.child_friendly%}checked{%endif%}>
                                             <label class="form-check-label" for="customSwitchsizelg">Child-Friendly</label>
                                         </div>
                                         <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
-                                            <input type="checkbox" class="form-check-input" id="customSwitchsizelg" checked>
+                                            <input type="checkbox" name="pet_friendly" class="form-check-input" id="customSwitchsizelg" {% if amenities.pet_friendly%}checked{%endif%}>
                                             <label class="form-check-label" for="customSwitchsizelg">Pet Friendly</label>
                                         </div>
                                         <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
-                                            <input type="checkbox" class="form-check-input" id="customSwitchsizelg" checked>
-                                            <label class="form-check-label" for="customSwitchsizelg">Large Size Switch</label>
-                                        </div>
-                                        <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
-                                            <input type="checkbox" class="form-check-input" id="customSwitchsizelg" checked>
+                                            <input type="checkbox" name="wifi" class="form-check-input" id="customSwitchsizelg" {% if amenities.wifi%}checked{%endif%}>
                                             <label class="form-check-label" for="customSwitchsizelg">WiFi</label>
                                         </div>
                                         <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
-                                            <input type="checkbox" class="form-check-input" id="customSwitchsizelg" checked>
+                                            <input type="checkbox" name="loyalty_program" class="form-check-input" id="customSwitchsizelg" {% if amenities.loyalty_program%}checked{%endif%}>
                                             <label class="form-check-label" for="customSwitchsizelg">Loyalty Program</label>
                                         </div>
                                     </div>

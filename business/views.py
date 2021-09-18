@@ -42,22 +42,28 @@ def profile(request):
 def options(request,type='all'):
     user = request.user.id
     business = Business.objects.filter(user_id=user).first()
-    amenities = Amenities.objects.filter(business_id = business)
+    amenities = Amenities.objects.filter(business_id = business.id)
     amenities_count = amenities.count()
-    payment_methods = PaymentMethods.objects.filter(business_id = business)
+    payment_methods = PaymentMethods.objects.filter(business_id = business.id)
     payment_methods_count = payment_methods.count()
     if request.method =='POST':
         if type =='amenities':
             if(amenities_count == 0 ):
                 form = BusinessAmenitiesForm(request.POST)
+                print(dict(request.POST.items()))
                 if form.is_valid:
                     form = form.save(commit=False)
-                    form.business_id = business
+                    form.business_id = business.id
                     form.save()
                     messages.success(request,'your business amenities are added successfully')
                     return redirect('bus.options')
             else:
+                print(dict(request.POST.items()))
                 form = BusinessAmenitiesForm(request.POST,instance=amenities.first())
+                print(dict(request.POST.items()))
+                # for name,item in request.POST.items():
+                #     print(name)
+                #     print(item)
                 form.save()
                 messages.success(request,'your business amenities are updated')
         elif type == 'payment_methods':
