@@ -8,6 +8,7 @@ urlpatterns=[
     path('profile/',views.profile, name='bus.profile'),
     path('options/',views.options, name='bus.options'),
     path('options/<str:type>/',views.options, name='bus.options'),
+    path('photos/',views.photos, name='bus.photos'),
     path('services/',views.services, name='bus.services'),
     path('staff/add',views.dashboard, name='bus.staff.add'),
     path('staff/delete',views.dashboard, name='bus.staff.del')

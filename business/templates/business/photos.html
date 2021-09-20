@@ -1,0 +1,96 @@
+{%extends 'main-bus.html'%}
+{%block content%}
+{%load static%}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Manage Your Business Profile</h4>
+                <p class="card-title-desc">Let your customers know about your business,provide contact, location and social media details</p>
+                {%include 'alert.html'%}
+                <div class="row">
+                    <div class="col-xl-2">
+                        <!-- <h5 class="font-size-16 mb-4">General Info</h5> -->
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title mb-3">Logo</h4>        
+                                <div class="profile-logo">
+                                    <img class="img-thumbnail rounded-circle avatar-xl" alt="200x200" src="{% static 'images/avatar-3.jpg'%}" data-holder-rendered="true">
+                                    <form action="" class="cus_submit_photo_strict">
+                                        <input type="file" id="profile_logo" onchange="bus.submitForm(this);" style="display: none;" />
+                                    </form>
+                                    <div class="card-img-overlay profile-banner">
+                                        <span> <i class="material-icons text-white upload-logo">edit</i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-10">
+                        <!-- <h5 class="font-size-16 mb-4">General Info</h5> -->
+                        <div class="card profile-banner">
+                            <img class="card-img img-fluid profile-banner" src="{%static 'images/img-6.jpg'%}" alt="Card image">
+                            <div class="card-img-overlay">
+                                <h4 class="card-title text-white ">Profile Banner 
+                                    <span> <i class="material-icons text-white">edit</i></span></h4>
+                                <p class="card-text text-light">This is a wider card with supporting text below as a
+                                    natural lead-in to additional content. This content is a little bit
+                                    longer.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-12">
+                        <!-- <h5 class="font-size-16 mb-4">General Info</h5> -->
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title mb-3">Display Photos</h4>        
+                                <div class="row">
+                                    <div class="col-md-6 col-xl-3">
+                                        <!-- Simple card -->
+                                        <div class="card">
+                                            <img class="card-img-top img-fluid" src="{%static 'images/img-6.jpg'%}" alt="Card image cap">
+                                            <div class="card-img-overlay profile-banner">
+                                                <span> <i class="material-icons text-white">edit</i></span>
+                                            </div>
+                                        </div>
+                                    </div><!-- end col -->
+                                    <div class="col-md-6 col-xl-3">
+                                        <!-- Simple card -->
+                                        <div class="card">
+                                            <img class="card-img-top img-fluid" src="{%static 'images/img-6.jpg'%}" alt="Card image cap">
+                                            <div class="card-img-overlay profile-banner">
+                                                <span> <i class="material-icons text-white">edit</i></span>
+                                            </div>
+                                        </div>
+                                    </div><!-- end col -->
+                                    <div class="col-md-6 col-xl-3">
+                                        <!-- Simple card -->
+                                        <div class="card">
+                                            <img class="card-img-top img-fluid" src="{%static 'images/img-6.jpg'%}" alt="Card image cap">
+                                            <div class="card-img-overlay profile-banner">
+                                                <span> <i class="material-icons text-white">edit</i></span>
+                                            </div>
+                                        </div>
+                                    </div><!-- end col -->
+                                    <div class="col-md-6 col-xl-3">
+                                        <!-- Simple card -->
+                                        <div class="card">
+                                            <img class="card-img-top img-fluid" src="{%static 'images/img-6.jpg'%}" alt="Card image cap">
+                                            <div class="card-img-overlay profile-banner">
+                                                <span> <i class="material-icons text-white">edit</i></span>
+                                            </div>
+                                        </div>
+                                    </div><!-- end col -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endblock%}

@@ -129,6 +129,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
+MEDIA_URL = '/images/app/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images/app')
+
 MESSAGE_TAGS = {
         messages.DEBUG: 'alert-secondary',
         messages.INFO: 'alert-info',

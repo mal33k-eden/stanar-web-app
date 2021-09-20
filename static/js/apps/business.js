@@ -1,19 +1,23 @@
-bus={
+let bus={
+    
     init:()=>{
-        $('.cus_submit_strict').click((e)=>{
+        let cs = $('.cus_submit_strict');
+        if(cs.length > 0){
+            $('.cus_submit_strict').click((e)=>{
+                e.preventDefault()
+                bus.submitStrictForm()
+            })
+        }
+        $('.upload-logo').click((e)=>{
             e.preventDefault()
-            bus.submitStrictForm()
-        })
-        $('.cus_submit').click((e)=>{
-            e.preventDefault()
-            bus.submitForm()
+            $("input[id='profile_logo']").click()
         })
     },
     submitStrictForm:()=>{
         bp();
         if($('.bus-form')[0].checkValidity()){
             setTimeout(()=>{
-                $('.bus-form').submit();
+                $('.bus-form').closest('form').submit();
             },3000)
         }else{
             notifyError('Error','Kindly fill out the form correctly');
@@ -22,11 +26,15 @@ bus={
             },3000)
         }    
     },
-    submitForm:()=>{
+    submitForm:(el)=>{
         bp();
         setTimeout(()=>{
-            $('.bus-form').submit();
+            el.closest('form').submit();
         },3000)
+    },
+    uploadPhoto:()=>{
+        //bp();
+        console.log('herere')
     }
 
 }

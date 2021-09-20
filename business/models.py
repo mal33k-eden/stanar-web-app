@@ -47,5 +47,16 @@ class PaymentMethods(models.Model):
     
     def __str__(self) -> str:
         return self.business
+class Photos(models.Model):
+    business        = models.OneToOneField(Business, on_delete=models.CASCADE, null=True,blank=True)
+    logo            = models.ImageField(null=True,blank=True, default="stanar-logo-placeholder.jpg")
+    banner          = models.ImageField(null=True,blank=True, default="stanar-banner-placeholder.jpg")
+    display_1       = models.ImageField(null=True,blank=True, default="stanar-display-placeholder.jpg")
+    display_2       = models.ImageField(null=True,blank=True, default="stanar-display-placeholder.jpg")
+    display_3       = models.ImageField(null=True,blank=True, default="stanar-display-placeholder.jpg")
+    display_4       = models.ImageField(null=True,blank=True, default="stanar-display-placeholder.jpg")
+    
+    def __str__(self) -> str:
+        return self.business
 
     

@@ -48,7 +48,7 @@
                                         </div>
                                     </div>
                                     <div class="mt-4">
-                                        <button type="submit" class="btn btn-primary btn-center btn-rounded w-md cus_submit">Update Amenities</button>
+                                        <a href="javascript:void(0)"  style="width: fit-content;" onclick="bus.submitForm(this);" class="btn btn-primary btn-center btn-rounded w-md cus_submit">Update Amenities</a>
                                     </div>
                                 </form>
                             </div>
@@ -60,35 +60,36 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title mb-3">Payment Methods</h4>        
-                                <form action="">
+                                <form action="{%url 'bus.options' 'payment_methods'%}" class="bus-form" method="POST">
+                                    {%csrf_token%}
                                     <div>
                                         <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
-                                            <input type="checkbox" class="form-check-input" id="customSwitchsizelg" checked>
+                                            <input type="checkbox" name="cash" class="form-check-input" id="customSwitchsizelg" {%ifequal payment_methods.cash 'on' %}checked{%endifequal%}>
                                             <label class="form-check-label" for="customSwitchsizelg">Cash</label>
                                         </div>
                                         <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
-                                            <input type="checkbox" class="form-check-input" id="customSwitchsizelg" checked>
+                                            <input type="checkbox" name="physical" class="form-check-input" id="customSwitchsizelg" {%ifequal payment_methods.physical 'on' %}checked{%endifequal%}>
                                             <label class="form-check-label" for="customSwitchsizelg">Physical Card Terminal</label>
                                         </div>
                                         <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
-                                            <input type="checkbox" class="form-check-input" id="customSwitchsizelg" checked>
+                                            <input type="checkbox" name="check" class="form-check-input" id="customSwitchsizelg" {%ifequal payment_methods.check 'on' %}checked{%endifequal%}>
                                             <label class="form-check-label" for="customSwitchsizelg">Check</label>
                                         </div>
                                         <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
-                                            <input type="checkbox" class="form-check-input" id="customSwitchsizelg" checked>
+                                            <input type="checkbox" name="paypal" class="form-check-input" id="customSwitchsizelg" {%ifequal payment_methods.paypal 'on' %}checked{%endifequal%}>
                                             <label class="form-check-label" for="customSwitchsizelg">PayPal</label>
                                         </div>
                                         <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
-                                            <input type="checkbox" class="form-check-input" id="customSwitchsizelg" checked>
+                                            <input type="checkbox" name="bank_transfer" class="form-check-input" id="customSwitchsizelg" {%ifequal payment_methods.bank_transfer 'on' %}checked{%endifequal%}>
                                             <label class="form-check-label" for="customSwitchsizelg">Bank Transfer</label>
                                         </div>
                                         <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
-                                            <input type="checkbox" class="form-check-input" id="customSwitchsizelg" checked>
+                                            <input type="checkbox" name="gift_card" class="form-check-input" id="customSwitchsizelg" {%ifequal payment_methods.gift_card 'on' %}checked{%endifequal%}>
                                             <label class="form-check-label" for="customSwitchsizelg">Gift Card</label>
                                         </div>
                                     </div>
                                     <div class="mt-4 ">
-                                        <button type="submit" class="btn btn-primary btn-center btn-rounded w-md cus_submit">Update Payment Methods</button>
+                                        <a href="javascript:void(0)"  style="width: fit-content;" onclick="bus.submitForm(this);" class="btn btn-primary btn-center btn-rounded w-md cus_submit">Update Payment Methods</a>
                                     </div>
                                 </form>
                             </div>
