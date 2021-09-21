@@ -15,9 +15,11 @@
                             <div class="card-body">
                                 <h4 class="card-title mb-3">Logo</h4>        
                                 <div class="profile-logo">
-                                    <img class="img-thumbnail rounded-circle avatar-xl" alt="200x200" src="{% static 'images/avatar-3.jpg'%}" data-holder-rendered="true">
-                                    <form action="" class="cus_submit_photo_strict">
-                                        <input type="file" id="profile_logo" onchange="bus.submitForm(this);" style="display: none;" />
+                                    <!--static 'images/avatar-3.jpg' -->
+                                    <img class="img-thumbnail rounded-circle avatar-xl" alt="200x200" src="{{photos.logo.url}}" data-holder-rendered="true">
+                                    <form action="{%url 'bus.photos'%}" method="POST" enctype="multipart/form-data">
+                                        {%csrf_token%}
+                                        <input type="file" id="profile_logo"  name="logo" onchange="bus.submitForm(this);" style="display: none;" />
                                     </form>
                                     <div class="card-img-overlay profile-banner">
                                         <span> <i class="material-icons text-white upload-logo">edit</i></span>
@@ -29,10 +31,14 @@
                     <div class="col-xl-10">
                         <!-- <h5 class="font-size-16 mb-4">General Info</h5> -->
                         <div class="card profile-banner">
-                            <img class="card-img img-fluid profile-banner" src="{%static 'images/img-6.jpg'%}" alt="Card image">
+                            <img class="card-img img-fluid profile-banner" src="{{photos.banner.url}}" alt="Card image">
+                            <form action="{%url 'bus.photos'%}" method="POST" enctype="multipart/form-data">
+                                {%csrf_token%}
+                                <input type="file" id="profile_banner"  name="banner" onchange="bus.submitForm(this);" style="display: none;" />
+                            </form>
                             <div class="card-img-overlay">
                                 <h4 class="card-title text-white ">Profile Banner 
-                                    <span> <i class="material-icons text-white">edit</i></span></h4>
+                                    <span> <i class="material-icons text-white upload-banner">edit</i></span></h4>
                                 <p class="card-text text-light">This is a wider card with supporting text below as a
                                     natural lead-in to additional content. This content is a little bit
                                     longer.</p>
@@ -49,8 +55,25 @@
                                     <div class="col-md-6 col-xl-3">
                                         <!-- Simple card -->
                                         <div class="card">
-                                            <img class="card-img-top img-fluid" src="{%static 'images/img-6.jpg'%}" alt="Card image cap">
+                                            <img class="card-img-top img-fluid" src="{{photos.display_1.url}}" alt="Card image cap">
+                                            <form action="{%url 'bus.photos'%}" method="POST" enctype="multipart/form-data">
+                                                {%csrf_token%}
+                                                <input type="file" id="profile_display_1"  name="display_1" onchange="bus.submitForm(this);" style="display: none;" />
+                                            </form>
                                             <div class="card-img-overlay profile-banner">
+                                                <span> <i class="material-icons text-white upload-display-1">edit</i></span>
+                                            </div>
+                                        </div>
+                                    </div><!-- end col -->
+                                    <div class="col-md-6 col-xl-3">
+                                        <!-- Simple card -->
+                                        <div class="card">
+                                            <img class="card-img-top img-fluid" src="{{photos.display_2.url}}" alt="Card image cap">
+                                            <form action="{%url 'bus.photos'%}" method="POST" enctype="multipart/form-data">
+                                                {%csrf_token%}
+                                                <input type="file" id="profile_display_2"  name="display_2" onchange="bus.submitForm(this);" style="display: none;" />
+                                            </form>
+                                            <div class="card-img-overlay profile-banner upload-display-2">
                                                 <span> <i class="material-icons text-white">edit</i></span>
                                             </div>
                                         </div>
@@ -58,27 +81,26 @@
                                     <div class="col-md-6 col-xl-3">
                                         <!-- Simple card -->
                                         <div class="card">
-                                            <img class="card-img-top img-fluid" src="{%static 'images/img-6.jpg'%}" alt="Card image cap">
+                                            <img class="card-img-top img-fluid" src="{{photos.display_3.url}}" alt="Card image cap">
+                                            <form action="{%url 'bus.photos'%}" method="POST" enctype="multipart/form-data">
+                                                {%csrf_token%}
+                                                <input type="file" id="profile_display_3"  name="display_3" onchange="bus.submitForm(this);" style="display: none;" />
+                                            </form>
                                             <div class="card-img-overlay profile-banner">
-                                                <span> <i class="material-icons text-white">edit</i></span>
+                                                <span> <i class="material-icons text-white upload-display-3">edit</i></span>
                                             </div>
                                         </div>
                                     </div><!-- end col -->
                                     <div class="col-md-6 col-xl-3">
                                         <!-- Simple card -->
                                         <div class="card">
-                                            <img class="card-img-top img-fluid" src="{%static 'images/img-6.jpg'%}" alt="Card image cap">
+                                            <img class="card-img-top img-fluid" src="{{photos.display_4.url}}" alt="Card image cap">
+                                            <form action="{%url 'bus.photos'%}" method="POST" enctype="multipart/form-data">
+                                                {%csrf_token%}
+                                                <input type="file" id="profile_display_4"  name="display_4" onchange="bus.submitForm(this);" style="display: none;" />
+                                            </form>
                                             <div class="card-img-overlay profile-banner">
-                                                <span> <i class="material-icons text-white">edit</i></span>
-                                            </div>
-                                        </div>
-                                    </div><!-- end col -->
-                                    <div class="col-md-6 col-xl-3">
-                                        <!-- Simple card -->
-                                        <div class="card">
-                                            <img class="card-img-top img-fluid" src="{%static 'images/img-6.jpg'%}" alt="Card image cap">
-                                            <div class="card-img-overlay profile-banner">
-                                                <span> <i class="material-icons text-white">edit</i></span>
+                                                <span> <i class="material-icons text-white upload-display-4">edit</i></span>
                                             </div>
                                         </div>
                                     </div><!-- end col -->

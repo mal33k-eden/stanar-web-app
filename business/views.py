@@ -94,20 +94,22 @@ def options(request,type='all'):
 def photos(request):
     user = request.user.id
     business = Business.objects.filter(user_id=user).first()
-    bus_photos = Photos.objects.filter(business_id=business.id)
-    bus_photos_count = bus_photos.count()
+    bus_photos = Photos.objects.get(business_id=business.id)
+    bus_photos_2 = Photos.objects.filter(business_id=business.id)
+    bus_photos_count = bus_photos_2.count()
     if request.method =='POST':
         if bus_photos_count > 0:
             form = BusinessPhotosForm(request.POST,request.FILES, instance=bus_photos)
         if bus_photos_count == 0:
             form = BusinessPhotosForm(request.POST,request.FILES)
         if form.is_valid:
+            print(form.clean)
             if bus_photos_count == 0:
                 form = form.save(commit=False)
                 form.business_id = business.id
             form.save()
-
-    context = {'page_title':'Business Photos',}
+            messages.success(request,'your photo uploaded successfully')
+    context = {'page_title':'Business Photos','photos':bus_photos}
     return render(request, 'business/photos.html',context)
 
 def services(request):

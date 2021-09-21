@@ -1,16 +1,41 @@
 let bus={
     
     init:()=>{
+        
         let cs = $('.cus_submit_strict');
+        let s2 = $('.select2');
         if(cs.length > 0){
             $('.cus_submit_strict').click((e)=>{
                 e.preventDefault()
                 bus.submitStrictForm()
             })
         }
+        if(s2.length > 0){
+            s2.select2();
+        }
         $('.upload-logo').click((e)=>{
             e.preventDefault()
             $("input[id='profile_logo']").click()
+        })
+        $('.upload-banner').click((e)=>{
+            e.preventDefault()
+            $("input[id='profile_banner']").click()
+        })
+        $('.upload-display-1').click((e)=>{
+            e.preventDefault()
+            $("input[id='profile_display_1']").click()
+        })
+        $('.upload-display-2').click((e)=>{
+            e.preventDefault()
+            $("input[id='profile_display_2']").click()
+        })
+        $('.upload-display-3').click((e)=>{
+            e.preventDefault()
+            $("input[id='profile_display_3']").click()
+        })
+        $('.upload-display-4').click((e)=>{
+            e.preventDefault()
+            $("input[id='profile_display_4']").click()
         })
     },
     submitStrictForm:()=>{

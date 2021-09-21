@@ -18,6 +18,7 @@ class Category(models.Model):
 class Service(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True,primary_key=True,editable=False)
     name = models.CharField(max_length=200)
+    sub_category= models.BooleanField(default=False)
     category_id = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)
 
