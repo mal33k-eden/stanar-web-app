@@ -1,7 +1,7 @@
 from django.db import models
 import uuid
 from django.contrib.auth.models import AbstractUser
-
+from business.models import Business
 # Create your models here.
 
 class User(AbstractUser):
@@ -23,8 +23,10 @@ class User(AbstractUser):
     ]
 
 class Staff(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True,blank=True)
+    user     = models.ForeignKey(User, on_delete=models.CASCADE, null=True,blank=True)
     id       = models.UUIDField(default=uuid.uuid4,unique=True, primary_key=True, editable=False)
+    busines  = models.OneToOneField(Business,on_delete=models.CASCADE,null=True,blank=True)
+    # photo    = models.ImageField(null=True,blank=True, default="stanar-display-placeholder.jpg")
 
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True,blank=True)

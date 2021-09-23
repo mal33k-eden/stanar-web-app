@@ -4,6 +4,7 @@ let bus={
         
         let cs = $('.cus_submit_strict');
         let s2 = $('.select2');
+        let s2m = $('.select2-multiple');
         if(cs.length > 0){
             $('.cus_submit_strict').click((e)=>{
                 e.preventDefault()
@@ -12,6 +13,9 @@ let bus={
         }
         if(s2.length > 0){
             s2.select2();
+        }
+        if(s2m.length > 0){
+            s2m.select2();
         }
         $('.upload-logo').click((e)=>{
             e.preventDefault()
@@ -61,7 +65,7 @@ let bus={
         bp();
         console.log(formID)
         setTimeout(()=>{
-            $("#-"+formID).submit()
+            $("#"+formID).submit()
         },3000)
     },
     uploadPhoto:()=>{

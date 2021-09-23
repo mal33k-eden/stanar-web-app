@@ -11,6 +11,8 @@ urlpatterns=[
     path('photos/',views.photos, name='bus.photos'),
     path('services/',views.services, name='bus.services'),
     path('services/<int:pk>/update',views.updateService, name='bus.services.update'),
-    path('staff/add',views.dashboard, name='bus.staff.add'),
-    path('staff/delete',views.dashboard, name='bus.staff.del')
+    path('services/<int:pk>/delete',views.deleteService, name='bus.services.delete'),
+    path('staff',views.staff, name='bus.staff'),
+    path('staff/<int:pk>/update',views.updateStaff, name='bus.staff.update'),
+    path('staff/<int:pk>/delete',views.deleteStaff, name='bus.staff.delete'),
 ]

@@ -1,4 +1,5 @@
 from django.contrib.messages.api import error
+import business
 from services.models import Category
 from business import forms
 from django.core.exceptions import ValidationError
@@ -124,28 +125,18 @@ def services(request,pk=''):
         form = BusinessServiceForm(request.POST)
         form_service =request.POST.get('service')
         bus_services = Service.objects.filter(service_id=form_service)
-        if form.is_valid():
-            form = form.save(commit=False)
-            form.business_id = business.id
-            form.save()
-            messages.success(request,'service added to your profile')
-            BusinessServiceForm()
-            return redirect('bus.services')
-    if request.method =='DELETE':
-        form = BusinessServiceForm(request.POST)
-        if form.is_valid:
-            form = form.save(commit=False)
-            form.business_id = business.id
-            form.save()
-            messages.error(request,'service removed from your profile')
-            return redirect('bus.services')
-    if request.method =='PUT':
-        service = Service.objects.get(id=pk)
-        form = BusinessServiceForm(request.PUT,instance=service)
-        if form.is_valid:
-            form.save()
-            messages.error(request,'service updated')
-            return redirect('bus.services')
+        if bus_services.count() < 1:
+            if form.is_valid():
+                form = form.save(commit=False)
+                form.business_id = business.id
+                form.save()
+                messages.success(request,'service added to your profile')
+                BusinessServiceForm()
+                return redirect('bus.services')
+            else:
+                messages.error(request,'form not correctly filled')
+        else:
+            messages.error(request,'ERROR: selected service already added to your profile')
     context = {'page_title':'Business Services','form':form,'categories':categories,'business':business,'error':error}
     return render(request,'business/services.html',context)
 
@@ -156,7 +147,24 @@ def updateService(request,pk):
         print(form)
         if form.is_valid():
             form.save()
-            messages.error(request,'service updated')
+            messages.success(request,'service updated')
             return redirect('bus.services')
-    messages.error(request,'error occurred')
     return redirect('bus.services')
+def deleteService(request,pk):
+    service = Service.objects.get(id=pk)
+    if request.method =='POST':
+        service.delete()
+        messages.success(request,'service removed from your profile')
+    return redirect('bus.services')
+def staff(request):
+    user = request.user.id
+    business = Business.objects.filter(user_id=user).first()
+    bus_services = Service.objects.filter(business_id=business.id)
+    if request.method=='POST':
+        pass
+    context ={'page_title':'Business Staff','services':bus_services}
+    return render(request,'business/staff.html',context)
+def deleteStaff(request):
+    return render(request,'business/staff.html')
+def updateStaff(request):
+    return render(request,'business/staff.html')

@@ -48,22 +48,21 @@ class BusinessPhotosForm(ModelForm):
             field.widget.attrs.update({'class':'form-check-input'})
 
 class BusinessServiceForm(ModelForm):
-    _method = forms.CharField(max_length='10')
     class Meta:
         model = Service
-        fields = ['service','duration_hours','duration_mins','price','note','_method']
+        fields = ['service','duration_hours','duration_mins','price','note']
     def __init__(self,*args,**kwargs):
         super(BusinessServiceForm,self).__init__(*args,**kwargs)
         for name,field in self.fields.items():
             field.widget.attrs.update({'class':'form-control'})
-    def clean_service(self):
-        cleaned_data= super().clean()
-        r = cleaned_data.get('_method',None)
-        service = cleaned_data.get('service')
-        bus_services = Service.objects.filter(service_id=service)
-        print(r)
-        if r==None:
-            if bus_services.count() > 0 :
-                self.add_error('service', forms.ValidationError(f"{service} already added to your profile"))
-                return service
+    # def clean_service(self):
+    #     cleaned_data= super().clean()
+    #     method = cleaned_data.get('_method')
+    #     service = cleaned_data.get('service')
+    #     bus_services = Service.objects.filter(service_id=service)
+    #     print(method)
+    #     if method==None:
+    #         if bus_services.count() > 0 :
+    #             self.add_error('service', forms.ValidationError(f"{service} already added to your profile"))
+    #             return service
         

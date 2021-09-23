@@ -1,4 +1,3 @@
-import business
 from django.db import models
 import uuid
 from accounts.models import User
@@ -24,6 +23,7 @@ class Business(models.Model):
 
     def __str__(self) -> str:
         return self.business_name
+
 
 class Amenities(models.Model):
     business        = models.OneToOneField(Business, on_delete=models.CASCADE, null=True,blank=True)
@@ -71,3 +71,4 @@ class Service(models.Model):
 
     def __str__(self) -> str:
         return self.business
+
