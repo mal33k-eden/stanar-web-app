@@ -1,5 +1,5 @@
 {%extends 'main-bus.html'%}
-{%load static}
+{%load static%}
 {%block content%}
 
 
@@ -33,137 +33,185 @@
             <div class="card-body">
                 <h4 class="card-title">Add A Service</h4>
                 <p class="card-title-desc">Let your customers know what the services you offer and how you charge!</p>
-                <form>
+                <form action="{%url 'bus.services'%}" method="POST">
+                    {%csrf_token%}
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="mb-3">
                                 <label class="form-label">Select Services</label>
-                                <select class="form-control select2">
-                                    <option>Services</option>
-                                    <optgroup label="Barbers">
-                                        <option value="AK">Trim with beard</option>
-                                        <option value="HI">Trim without beard</option>
-                                        <option value="AK">Shape up</option>
-                                        <option value="HI">Kids haircut</option>
-                                    </optgroup>
+                                <select class="form-control select2" name="service" required>                      
+                                    {% for category in categories %}
+                                        <optgroup label="{{category.name}}">
+                                            {%for service in category.service_set.all %}
+                                                <option value="{{service.id}}">{{service.name}}</option>
+                                            {%endfor%}
+                                        </optgroup>
+                                    {% endfor%}
                                 </select>
+                                {{form.service.errors}}
                             </div>
                             <div class="row">
                                 <label class="form-label">Service Duration</label>
-                                <div class="col-lg-6">
+                                <div class="col-lg-4 col-sm-4">
                                     <div class="mb-3">
                                         <label class="form-label">Hours</label>
-                                        <input type="text" placeholder="00:00" class="form-control">
+                                        <input type="text" placeholder="00" class="form-control" name="duration_hours" >
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-4 col-sm-4">
                                     <div class="mb-3">
                                         <label class="form-label">Min</label>
-                                        <input type="text" placeholder="00:00" class="form-control">
+                                        <input type="text" placeholder="00" class="form-control" name="duration_mins" >
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-4 col-sm-4">
                                     <div class="mb-3">
                                         <label class="form-label">Service Price</label>
-                                        <input type="text" placeholder="&pound; 10.00" class="form-control">
+                                        <input type="text" placeholder="&pound; 10.00" class="form-control" name="price" >
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="mb-3">
                                         <label class="form-label">Service Notes</label>
-                                        <textarea name="" id="" cols="30" rows="5" class="form-control" placeholder="e.g Special Style attracts additional charges"></textarea>
+                                        <textarea id="" cols="30" rows="5" class="form-control" placeholder="e.g Special Style attracts additional charges" name="note" ></textarea>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="mb-3">
-                                        <a href="javascript:void(0);" class="btn btn-success waves-effect waves-light" >Add New Service</a>
+                                        <a href="javascript:void(0);" class="btn btn-success waves-effect waves-light" onclick="bus.submitForm(this)" >Add New Service</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </form>
-
+                
             </div>
         </div>
         <!-- end select2 -->
     </div>
     <div class="col-lg-8">
         <div class="row">
-            <div class="col-xl-6 col-sm-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex align-items-start">
-                            <div class="flex-grow-1 align-self-center">
-                                <div class="border-bottom pb-1">
-                                    <div class="icon-decor">
-                                        <h5 class="text-truncate mb-1 "><a href="#" class="text-dark">Male Hair Cut</a></h5>
-                                        <span><i class="material-icons">edit</i></span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-4">
-                                        <div class="mt-3">
-                                            <p class="text-muted mb-2">Duration</p>
-                                            <h5 class="font-size-16 mb-0">1hr:30min</h5>
+            {% for bus_services in business.service_set.all%}
+                <div class="col-xl-6 col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start">
+                                <div class="flex-grow-1 align-self-center">
+                                    <div class="border-bottom pb-1">
+                                        <div class="icon-decor">
+                                            <h5 class="text-truncate mb-1 "><a href="#" class="text-dark">{{bus_services.service.name}}</a></h5>
+                                            <span data-bs-toggle="modal" data-bs-target=".service-edit-{{bus_services.id}}"><i class="material-icons">edit</i></span>
                                         </div>
                                     </div>
-                                    <div class="col-4">
-                                        <div class="mt-3">
-                                            <p class="text-muted mb-2">Rate</p>
-                                            <h5 class="font-size-16 mb-0">30mins</h5>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <div class="mt-3">
+                                                <p class="text-muted mb-2">Duration</p>
+                                                <h5 class="font-size-16 mb-0">
+                                                    {{bus_services.duration_hours}}1hr:{{bus_services.duration_mins}}min</h5>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="mt-3">
-                                            <p class="text-muted mb-2">Price</p>
-                                            <h5 class="font-size-16 mb-0">&pound; 20 <span style="font-size: 10px;">/rate</span> </h5>
+                                        <div class="col-4">
+                                            <div class="mt-3">
+                                            <p class="text-muted mb-2">Note</p>
+                                            <h5 class="font-size-16 mb-0"><a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target=".service-note-{{bus_services.id}}"><span class="badge bg-dark">See Note</span></a></h5>
+                                            </div> 
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-        
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-6 col-sm-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex align-items-start">
-                            <div class="flex-grow-1 align-self-center">
-                                <div class="border-bottom pb-1">
-                                    <div class="icon-decor">
-                                        <h5 class="text-truncate mb-1 "><a href="#" class="text-dark">Male Hair Cut</a></h5>
-                                        <span><i class="material-icons">edit</i></span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-4">
-                                        <div class="mt-3">
-                                            <p class="text-muted mb-2">Duration</p>
-                                            <h5 class="font-size-16 mb-0">1hr:30min</h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="mt-3">
-                                            <p class="text-muted mb-2">Rate</p>
-                                            <h5 class="font-size-16 mb-0">30mins</h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="mt-3">
-                                            <p class="text-muted mb-2">Price</p>
-                                            <h5 class="font-size-16 mb-0">&pound; 20 <span style="font-size: 10px;">/rate</span> </h5>
+                                        <div class="col-4">
+                                            <div class="mt-3">
+                                                <p class="text-muted mb-2">Price</p>
+                                                <h5 class="font-size-16 mb-0">&pound; {{bus_services.price}} <span style="font-size: 10px;">/duration</span> </h5>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+            
                         </div>
-        
                     </div>
+                    <!--  notes modal -->
+                    <div class="modal fade service-note-{{bus_services.id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-md">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="myLargeModalLabel">Service Notes</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <h4>Service : {{bus_services.service.name}}</h4>
+                                    <div class="card bg-dark text-white text-center p-3 mt-5">
+                                        <blockquote class="card-blockquote font-size-14 mb-0">
+                                            <p>{{bus_services.note}}</p>
+                                        </blockquote>
+                                    </div>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal -->
+                    <!--  edit modal -->
+                    <div class="modal fade service-edit-{{bus_services.id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-md">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="myLargeModalLabel">Edit Service</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <label>Service : {{bus_services.service.name}}</label>
+                                    <form action="{%url 'bus.services.update' pk=bus_services.id %}" method="POST" id="-{{bus_services.id}}">
+                                        {%csrf_token%}
+                                        <div class="row">
+                                            <input type="hidden" name="_method" value="PUT">
+                                            <input type="text" name="service" value="{{bus_services.service_id}}">
+                                            {{form.service.errors}}
+                                            <div class="col-lg-12">
+                                                <div class="row">
+                                                    <label class="form-label">Service Duration</label>
+                                                    <div class="col-lg-4 col-sm-4">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Hours</label>
+                                                            <input type="text" placeholder="00" class="form-control" name="duration_hours" value="{{bus_services.duration_hours}}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-sm-4">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Min</label>
+                                                            <input type="text" placeholder="00" class="form-control" name="duration_mins" value="{{bus_services.duration_mins}}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-sm-4">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Service Price</label>
+                                                            <input type="text" placeholder="&pound; 10.00" class="form-control" name="price" value="{{bus_services.price}}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Service Notes</label>
+                                                            <textarea id="" cols="30" rows="5" class="form-control" placeholder="e.g Special Style attracts additional charges" name="note">{{bus_services.note}}</textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <div class="mb-3">
+                                                            <a href="javascript:void(0);" class="btn btn-success waves-effect waves-light" onclick="bus.submitSpecificForm(this,'{{bus_services.id}}')" >Add New Service</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal -->
                 </div>
-            </div>
+                
+            {%endfor%}
         </div>
     </div>
 </div>

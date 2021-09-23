@@ -1,7 +1,10 @@
+from django.contrib.messages.api import error
+from services.models import Category
 from business import forms
-from business.models import Amenities, Business, PaymentMethods, Photos
+from django.core.exceptions import ValidationError
+from business.models import Amenities, Business, PaymentMethods, Photos, Service
 from django.db.models.expressions import F
-from business.forms import BusinessAmenitiesForm, BusinessPaymentMethodsForm, BusinessPhotosForm, BusinessProfileForm
+from business.forms import BusinessAmenitiesForm, BusinessPaymentMethodsForm, BusinessPhotosForm, BusinessProfileForm, BusinessServiceForm
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -112,6 +115,48 @@ def photos(request):
     context = {'page_title':'Business Photos','photos':bus_photos}
     return render(request, 'business/photos.html',context)
 
-def services(request):
-    context = {'page_title':'Business Services'}
-    return render(request,'business/services.html',context);
+def services(request,pk=''):
+    form = BusinessServiceForm()
+    user = request.user.id
+    business = Business.objects.filter(user_id=user).first()
+    categories = Category.objects.all()
+    if request.method =='POST':
+        form = BusinessServiceForm(request.POST)
+        form_service =request.POST.get('service')
+        bus_services = Service.objects.filter(service_id=form_service)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.business_id = business.id
+            form.save()
+            messages.success(request,'service added to your profile')
+            BusinessServiceForm()
+            return redirect('bus.services')
+    if request.method =='DELETE':
+        form = BusinessServiceForm(request.POST)
+        if form.is_valid:
+            form = form.save(commit=False)
+            form.business_id = business.id
+            form.save()
+            messages.error(request,'service removed from your profile')
+            return redirect('bus.services')
+    if request.method =='PUT':
+        service = Service.objects.get(id=pk)
+        form = BusinessServiceForm(request.PUT,instance=service)
+        if form.is_valid:
+            form.save()
+            messages.error(request,'service updated')
+            return redirect('bus.services')
+    context = {'page_title':'Business Services','form':form,'categories':categories,'business':business,'error':error}
+    return render(request,'business/services.html',context)
+
+def updateService(request,pk):
+    service = Service.objects.get(id=pk)
+    if request.method =='POST':
+        form = BusinessServiceForm(request.POST,instance=service)
+        print(form)
+        if form.is_valid():
+            form.save()
+            messages.error(request,'service updated')
+            return redirect('bus.services')
+    messages.error(request,'error occurred')
+    return redirect('bus.services')

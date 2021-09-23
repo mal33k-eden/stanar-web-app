@@ -1,6 +1,8 @@
+import business
 from django.db import models
 import uuid
 from accounts.models import User
+from services.models import Service as StanarServices
 # Create your models here.
 
 class Business(models.Model):
@@ -59,4 +61,13 @@ class Photos(models.Model):
     def __str__(self) -> str:
         return self.business
 
-    
+class Service(models.Model):
+    business = models.ForeignKey(Business,null=True,blank=True,on_delete=models.CASCADE)
+    duration_hours = models.CharField(max_length=2,blank=True,null=True,default='00')
+    duration_mins  = models.CharField(max_length=2,blank=True,null=True,default='00')
+    price   = models.FloatField(default=0.00)
+    note    = models.TextField(max_length=300, blank=True,null=True)
+    service =models.ForeignKey(StanarServices,on_delete=models.CASCADE,null=True)
+
+    def __str__(self) -> str:
+        return self.business

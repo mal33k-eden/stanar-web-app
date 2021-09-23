@@ -81,3 +81,11 @@
   display: block;
   margin: 0px auto;
 }
+.errorlist{
+  margin-top: 3px;
+  padding: 0!important;
+}
+.errorlist li{
+ list-style: none;
+  color: darkred;
+}

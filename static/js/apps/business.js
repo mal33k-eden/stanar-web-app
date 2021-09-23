@@ -57,6 +57,13 @@ let bus={
             el.closest('form').submit();
         },3000)
     },
+    submitSpecificForm:(el,formID)=>{
+        bp();
+        console.log(formID)
+        setTimeout(()=>{
+            $("#-"+formID).submit()
+        },3000)
+    },
     uploadPhoto:()=>{
         //bp();
         console.log('herere')
