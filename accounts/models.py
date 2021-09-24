@@ -1,7 +1,6 @@
 from django.db import models
 import uuid
 from django.contrib.auth.models import AbstractUser
-from business.models import Business
 # Create your models here.
 
 class User(AbstractUser):
@@ -15,19 +14,14 @@ class User(AbstractUser):
     full_name   = models.CharField(max_length=100, blank=True,null= True)
     username    = models.CharField(max_length=100, blank=True,null= True, unique=True)
     email       = models.EmailField(max_length=100,unique=True)
-    mobile   = models.CharField(max_length=100, blank=True,null= True)
+    mobile      = models.CharField(max_length=100, blank=True,null= True)
+    photo       = models.ImageField(null=True,blank=True, default="stanar-display-placeholder.jpg")
     
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS= [
         'username','full_name','policy_agreed'
     ]
 
-class Staff(models.Model):
-    user     = models.ForeignKey(User, on_delete=models.CASCADE, null=True,blank=True)
-    id       = models.UUIDField(default=uuid.uuid4,unique=True, primary_key=True, editable=False)
-    busines  = models.OneToOneField(Business,on_delete=models.CASCADE,null=True,blank=True)
-    # photo    = models.ImageField(null=True,blank=True, default="stanar-display-placeholder.jpg")
-
 class Customer(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True,blank=True)
+    user     = models.OneToOneField(User, on_delete=models.CASCADE, null=True,blank=True)
     id       = models.UUIDField(default=uuid.uuid4,unique=True, primary_key=True, editable=False)

@@ -24,7 +24,6 @@ class Business(models.Model):
     def __str__(self) -> str:
         return self.business_name
 
-
 class Amenities(models.Model):
     business        = models.OneToOneField(Business, on_delete=models.CASCADE, null=True,blank=True)
     cus_parking     = models.CharField(max_length=10,default='off',blank=True,null= True)
@@ -49,6 +48,7 @@ class PaymentMethods(models.Model):
     
     def __str__(self) -> str:
         return self.business
+
 class Photos(models.Model):
     business        = models.OneToOneField(Business, on_delete=models.CASCADE, null=True,blank=True)
     logo            = models.ImageField(null=True,blank=True, default="stanar-logo-placeholder.jpg")
@@ -72,3 +72,12 @@ class Service(models.Model):
     def __str__(self) -> str:
         return self.business
 
+class Staff(models.Model):
+    business =models.ForeignKey(Business,on_delete=models.CASCADE, null=True,blank=True)
+    user    = models.OneToOneField(User, on_delete=models.CASCADE, null=True,blank=True)
+    id       = models.UUIDField(default=uuid.uuid4,unique=True, primary_key=True, editable=False)
+
+class StaffService(models.Model):
+    staff = models.ForeignKey(Staff,on_delete=models.CASCADE, null=True,blank=True)
+    service  = models.ForeignKey(Service, on_delete=models.CASCADE, null=True,blank=True)
+    is_active = models.BooleanField(default=True)

@@ -14,40 +14,51 @@
             <div class="card-body">
                 <h4 class="card-title">Add A Staff</h4>
                 <p class="card-title-desc">Let your customers know what the services you offer and how you charge!</p>
-                <form action="{%url 'bus.staff'%}" method="POST">
+                <form action="{%url 'bus.staff'%}" method="POST" enctype="multipart/form-data">
                     {%csrf_token%}
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="row">
                                 <label class="form-label">Personal Details</label>
-                                <div class="col-lg-6 col-sm-6">
+                                <div class="col-lg-12 col-sm-12">
                                     <div class="mb-3">
-                                        <label class="form-label">First Name</label>
-                                        <input type="text" placeholder="e.g John" class="form-control" name="duration_hours" >
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-sm-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">Last Name</label>
-                                        <input type="text" placeholder="e.g Doe" class="form-control" name="duration_mins" >
+                                        <label class="form-label">Full Name</label>
+                                        <input type="text" placeholder="e.g John Doe" class="form-control" name="full_name" >
+                                    
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6">
                                     <div class="mb-3">
                                         <label class="form-label">E-mail</label>
-                                        <input type="text" placeholder="e.g j.doe@example.com" class="form-control" name="price" >
+                                        <input type="text" placeholder="e.g j.doe@example.com" class="form-control" name="email" >
+                                        {{form.email.errors}}
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6">
                                     <div class="mb-3">
                                         <label class="form-label">Nickname</label>
-                                        <input type="text" placeholder="e.g stylishJoe" class="form-control" name="price" >
+                                        <input type="text" placeholder="e.g stylishJoe" class="form-control" name="username" >
+                                        {{form.username.errors}}
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Password</label>
+                                        <input type="password" placeholder="**********" class="form-control" name="password1" >
+                                        {{form.password1.errors}}
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Re-Password</label>
+                                        <input type="password" placeholder="**********" class="form-control" name="password2" >
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-sm-12">
                                     <div class="mb-3">
                                         <label class="form-label">Profile Photo</label>
-                                        <input type="file" class="form-control" name="price" >
+                                        <input type="file" class="form-control" name="photo" >
+                                        {{form.username.errors}}
                                     </div>
                                 </div>
                                 <div class="mb-3">
@@ -77,6 +88,7 @@
     </div>
     <div class="col-lg-8">
         <div class="row">
+            {%for staff in business.staff_set.all%}
             <div class="col-xl-3 col-sm-6">
                 <div class="card text-center">
                     <div class="card-body">
@@ -93,8 +105,8 @@
                         <div class="mb-4">
                             <img src="{%static 'images_/users/avatar-2.jpg'%}" alt="" class="avatar-lg rounded-circle img-thumbnail">
                         </div>
-                        <h5 class="font-size-16 mb-1"><a href="#" class="text-dark">Simon Ryles</a></h5>
-                        <p class="text-muted mb-2">Full Stack Developer</p>
+                        <h5 class="font-size-16 mb-1"><a href="#" class="text-dark">{{staff.user.full_name}}</a></h5>
+                        <!-- <p class="text-muted mb-2">Full Stack Developer</p> -->
                         
                     </div>
 
@@ -104,6 +116,7 @@
                     </div>
                 </div>
             </div>
+            {%endfor%}
         </div>
     </div>
 </div>

@@ -1,9 +1,10 @@
+from accounts.forms import StaffRegistrationForm
 from django.contrib.messages.api import error
 import business
 from services.models import Category
 from business import forms
 from django.core.exceptions import ValidationError
-from business.models import Amenities, Business, PaymentMethods, Photos, Service
+from business.models import Amenities, Business, PaymentMethods, Photos, Service, Staff, StaffService
 from django.db.models.expressions import F
 from business.forms import BusinessAmenitiesForm, BusinessPaymentMethodsForm, BusinessPhotosForm, BusinessProfileForm, BusinessServiceForm
 from django.shortcuts import redirect, render
@@ -97,10 +98,12 @@ def options(request,type='all'):
 
 def photos(request):
     user = request.user.id
+    bus_photos=[]
     business = Business.objects.filter(user_id=user).first()
-    bus_photos = Photos.objects.get(business_id=business.id)
     bus_photos_2 = Photos.objects.filter(business_id=business.id)
     bus_photos_count = bus_photos_2.count()
+    if bus_photos_count > 0 :
+        bus_photos = Photos.objects.get(business_id=business.id)
     if request.method =='POST':
         if bus_photos_count > 0:
             form = BusinessPhotosForm(request.POST,request.FILES, instance=bus_photos)
@@ -113,6 +116,7 @@ def photos(request):
                 form.business_id = business.id
             form.save()
             messages.success(request,'your photo uploaded successfully')
+            return redirect('bus.photos')
     context = {'page_title':'Business Photos','photos':bus_photos}
     return render(request, 'business/photos.html',context)
 
@@ -158,11 +162,22 @@ def deleteService(request,pk):
     return redirect('bus.services')
 def staff(request):
     user = request.user.id
-    business = Business.objects.filter(user_id=user).first()
-    bus_services = Service.objects.filter(business_id=business.id)
+    biz = Business.objects.filter(user_id=user).first()
+    bus_services = Service.objects.filter(business_id=biz.id)
+    form = StaffRegistrationForm()
     if request.method=='POST':
-        pass
-    context ={'page_title':'Business Staff','services':bus_services}
+        form = StaffRegistrationForm(request.POST,request.FILES)
+        if form.is_valid():
+            instance_account = form.save()
+            staff = Staff.objects.create(user=instance_account,business=biz)
+            staff.save()
+            services = request.POST.getlist('service')
+            for service in services:
+                staffService = StaffService.objects.create(staff=staff,service_id= service,is_active=True)
+                staffService.save()
+            messages.success(request,'Staff added successfully')
+            return redirect('bus.staff')
+    context ={'page_title':'Business Staff','services':bus_services,'form':form,'business':biz}
     return render(request,'business/staff.html',context)
 def deleteStaff(request):
     return render(request,'business/staff.html')
